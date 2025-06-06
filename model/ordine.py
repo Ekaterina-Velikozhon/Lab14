@@ -15,7 +15,11 @@ class Ordine:
         return hash(self.order_id)
 
     def __eq__(self, other):
-        return self.order_id == other.order_id
+        if isinstance(other, int):
+            return self.order_id == other
+        elif isinstance(other, Ordine):  # Sostituisci con il vero nome della tua classe
+            return self.order_id == other.order_id
+        return False
 
     def __str__(self):
-        return self.order_id
+        return str(self.order_id)
