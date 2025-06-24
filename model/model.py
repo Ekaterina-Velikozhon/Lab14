@@ -51,11 +51,11 @@ class Model:
         parziale = [sourceObj]
         parziale_edges = []
 
-        self._ricorsione(parziale, parziale_edges, 0)
+        self._ricorsione(parziale, parziale_edges)
 
         return self._percorsoOttimo, self._pesoOttimo
 
-    def _ricorsione(self, parziale, parziale_edges, livello):
+    def _ricorsione(self, parziale, parziale_edges):
         # Calcola il peso attuale e aggiorna se serve
         peso = self._getPesoPercorso(parziale_edges)
         if peso > self._pesoOttimo:
@@ -76,7 +76,7 @@ class Model:
 
                 if self._ammissibilitaArco(parziale_edges):
                     parziale.append(n)
-                    self._ricorsione(parziale, parziale_edges, livello + 1)
+                    self._ricorsione(parziale, parziale_edges)
                     parziale.pop()
 
                 parziale_edges.pop()
@@ -95,6 +95,44 @@ class Model:
         for a in parziale_edges:
             pesoTot += a[2]
         return pesoTot
+
+
+ # def getBestPath(self, startStr):
+ #        self._bestPath = []
+ #        self._bestScore = 0
+ #
+ #        start = self._idMap[int(startStr)]
+ #
+ #        parziale = [start]
+ #
+ #        vicini = self._graph.neighbors(start)
+ #        for v in vicini:
+ #            parziale.append(v)
+ #            self._ricorsione(parziale)
+ #            parziale.pop()
+ #
+ #        return self._bestPath, self._bestScore
+
+ #  def _ricorsione(self, parziale):
+ #        if self.getScore(parziale) > self._bestScore:
+ #            self._bestScore = self.getScore(parziale)
+ #            self._bestPath = copy.deepcopy(parziale)
+ #
+ #        for v in self._graph.neighbors(parziale[-1]):
+ #            if (v not in parziale and #check if not in parziale
+ #                    self._graph[parziale[-2]][parziale[-1]]["weight"] >
+ #                    self._graph[parziale[-1]][v]["weight"]): #check if peso nuovo arco è minore del precedente
+ #                parziale.append(v)
+ #                self._ricorsione(parziale)
+ #                parziale.pop()
+
+# def getScore(self, listOfNodes):
+#     tot = 0
+#     for i in range(len(listOfNodes) - 1):
+#         tot += self._graph[listOfNodes[i]][listOfNodes[i + 1]]["weight"]
+#
+#     return tot
+
 
 
 
